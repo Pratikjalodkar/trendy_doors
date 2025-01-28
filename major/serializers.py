@@ -1,4 +1,4 @@
-from .models import User
+from .models import Profile, User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
@@ -55,3 +55,15 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['full_name', 'bio', 'image', 'verified']
+        # Verified can only be updated by admin
+        read_only_fields = ['verified']
+
+
+
+
